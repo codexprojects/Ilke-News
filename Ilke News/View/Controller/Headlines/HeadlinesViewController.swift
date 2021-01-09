@@ -115,8 +115,6 @@ class HeadlinesViewController: UIViewController {
      }
 
     @objc func readListAction(_ sender: UIButton) {
-        print("save to user defaults : \(sender.tag) \(sender.superview!.tag))")
-
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let cell = headlinesTableView.cellForRow(at: indexPath) as? HeadlinesCell
         let sliderCell = sliderCollectionView.cellForItem(at: indexPath) as? SliderCell
@@ -146,7 +144,6 @@ class HeadlinesViewController: UIViewController {
         }
 
         if readList.contains(where: { $0.value == item!.title }) {
-            print("remove item")
             guard let deselectIndex = readList.firstIndex(where: {$0.value == item!.title}) else { return }
             var updatedList = readList
             updatedList.remove(at: deselectIndex)
@@ -159,7 +156,6 @@ class HeadlinesViewController: UIViewController {
                 sliderCell?.readListActionButton.setTitle("Okuma Listesine Ekle", for: .normal)
             }
         } else {
-            print("add item")
             var updatedList = userDefaults.object(forKey: "ReadList") as? [String: String]
             updatedList?.updateValue(item!.title, forKey: "title")
             userDefaults.set(updatedList, forKey: "ReadList")

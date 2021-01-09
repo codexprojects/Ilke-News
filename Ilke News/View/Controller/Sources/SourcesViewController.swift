@@ -46,7 +46,6 @@ class SourcesViewController: UIViewController {
         viewModel.viewDidLoad()
         // Notifications from View Model
         viewModel.onUpdateNews = { [weak self] in
-            print("Finished to load datas: \(self?.viewModel.newsCells.count ?? 0)")
             self?.filteredArray.removeAll()
             self?.filteredArray = self?.viewModel.newsCells.filter { $0.sourceDetail.language == "en" } ?? []
             self?.sourcesTableView.reloadData()
