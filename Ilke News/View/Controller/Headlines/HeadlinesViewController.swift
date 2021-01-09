@@ -130,7 +130,7 @@ class HeadlinesViewController: UIViewController {
         }
 
         guard let readList = userDefaults.object(forKey: "ReadList") as? [String: String] else {
-            let dictionary = ["title": item!.title]
+            let dictionary = [item?.title: item?.title]
             userDefaults.set(dictionary, forKey: "ReadList")
             userDefaults.synchronize()
             if sender.superview?.tag == 0 {
@@ -157,7 +157,8 @@ class HeadlinesViewController: UIViewController {
             }
         } else {
             var updatedList = userDefaults.object(forKey: "ReadList") as? [String: String]
-            updatedList?.updateValue(item!.title, forKey: "title")
+            updatedList?.updateValue(item!.title, forKey: item!.title)
+
             userDefaults.set(updatedList, forKey: "ReadList")
             userDefaults.synchronize()
             if sender.superview?.tag == 0 {
