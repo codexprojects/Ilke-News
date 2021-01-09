@@ -2,10 +2,10 @@
 Case study.
 An iOS App to display news from newsapi.org
 
-Dependencies
+# Dependencies
 This project uses Kingfisher dependecy.
 
-Installation
+# Installation
 1 - In order to build the project successfully, the dependencies included in the dependencies section should be installed first.
 
 2 - To download the dependencies, Cocoapods should be used. If you are new to Cocoapods you may get more information on: https://cocoapods.org
