@@ -19,9 +19,8 @@ extension UITableView {
         self.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: identifier)
     }
 
-
     func dequeueReusableCell<Cell: UITableViewCell>(identifier: String = Cell.defaultReuseIdentifier, indexPath: IndexPath) -> Cell {
-        self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! Cell
+        (self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? Cell)!
     }
 
 }

@@ -29,11 +29,11 @@ final class HeadlinesNewsCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(headlinesViewController, animated: true)
     }
 
-    func presentNewsDetailsViewController(with url: String){
-        // TODO: If necessary navigate to detail screen logic will add.
+    func presentNewsDetailsViewController(with url: String) {
+        // If necessary navigate to detail screen logic will add. (todo)
     }
 
-    func childDidFinish(_ childCoordinator: CoordinatorProtocol){
+    func childDidFinish(_ childCoordinator: CoordinatorProtocol) {
         if let index = childCoordinators.firstIndex(where: { coordinator -> Bool in
             return childCoordinator === coordinator
         }) {
@@ -41,7 +41,7 @@ final class HeadlinesNewsCoordinator: CoordinatorProtocol {
         }
     }
 
-    func didFinishNewsTableViewController(){
+    func didFinishNewsTableViewController() {
         parentCoordinator?.childDidFinish(self)
     }
 
@@ -49,4 +49,3 @@ final class HeadlinesNewsCoordinator: CoordinatorProtocol {
         debugPrint("deinit from News Coordinator")
     }
 }
-

@@ -10,7 +10,7 @@ import Foundation
 
 final class NewsListViewModel {
 
-    //MARK: Constants and Variables
+    // MARK: Constants and Variables
 
     var coordinator: HeadlinesNewsCoordinator?
     var webService: NewsServiceProtocol!
@@ -25,27 +25,27 @@ final class NewsListViewModel {
 
     var source: Source!
 
-    //MARK: Initializer
+    // MARK: Initializer
 
-    init(webService: NewsServiceProtocol, source: Source){
+    init(webService: NewsServiceProtocol, source: Source) {
         self.webService = webService
         self.source = source
     }
 
-    //MARK: News Functions
+    // MARK: News Functions
 
-    func viewDidLoad(){
+    func viewDidLoad() {
 
         webService.getHeadlinesList(
             source: source.id, completion: firstPageCompletionHandler(object: error:)
         )
     }
 
-    func viewDidScrollToBottom(){
+    func viewDidScrollToBottom() {
       print("scroll list")
     }
 
-    func firstPageCompletionHandler(object: HeadlineItem?, error: HTTPError?){
+    func firstPageCompletionHandler(object: HeadlineItem?, error: HTTPError?) {
         guard error == nil else {
             onShowAlert("Network Error", error?.localizedDescription)
             return
@@ -57,7 +57,7 @@ final class NewsListViewModel {
         onUpdateNews()
     }
 
-    func otherPagesCompletionHandler(object: HeadlineItem?, error: HTTPError?){
+    func otherPagesCompletionHandler(object: HeadlineItem?, error: HTTPError?) {
         guard error == nil else {
             onShowAlert("Network Error", error?.localizedDescription)
             return
@@ -69,14 +69,14 @@ final class NewsListViewModel {
         onUpdateNews()
     }
 
-    //MARK: Coordinator Functions
+    // MARK: Coordinator Functions
 
-    func newsDidSelect(at index: Int){
+    func newsDidSelect(at index: Int) {
         let news = newsCells[index]
         coordinator?.presentNewsDetailsViewController(with: news.url)
     }
 
-    func viewDidDisappear(){
+    func viewDidDisappear() {
         coordinator?.didFinishNewsTableViewController()
     }
 

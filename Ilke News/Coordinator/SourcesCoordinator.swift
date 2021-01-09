@@ -29,7 +29,7 @@ final class SourcesCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(sourcesViewController, animated: true)
     }
 
-    func presentNewsDetailsViewController(with source: Source){
+    func presentNewsDetailsViewController(with source: Source) {
         let newsDetailsCoordinator = HeadlinesNewsCoordinator(navigationController: navigationController)
         newsDetailsCoordinator.source = source
         newsDetailsCoordinator.parentCoordinator = self
@@ -37,7 +37,7 @@ final class SourcesCoordinator: CoordinatorProtocol {
         newsDetailsCoordinator.start()
     }
 
-    func childDidFinish(_ childCoordinator: CoordinatorProtocol){
+    func childDidFinish(_ childCoordinator: CoordinatorProtocol) {
         if let index = childCoordinators.firstIndex(where: { coordinator -> Bool in
             return childCoordinator === coordinator
         }) {
@@ -45,7 +45,7 @@ final class SourcesCoordinator: CoordinatorProtocol {
         }
     }
 
-    func didFinishNewsTableViewController(){
+    func didFinishNewsTableViewController() {
         parentCoordinator?.childDidFinish(self)
     }
 
@@ -53,4 +53,3 @@ final class SourcesCoordinator: CoordinatorProtocol {
         debugPrint("deinit from News Coordinator")
     }
 }
-

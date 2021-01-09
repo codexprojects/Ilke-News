@@ -18,11 +18,12 @@ class HeadlinesViewController: UIViewController {
     //SliderCollecitonView
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var sliderPageView: UIPageControl!
-    var timer = Timer()
+    var timer : Timer!
     var counter = 0
+    var filteredArray:[HeadlinesNewsCellViewModel]?
 
     //Fetch data every 2 min.
-    var fetchDataTimer = Timer()
+    var fetchDataTimer: Timer!
 
     //TODO: Read list dummy local array.
     var readList : [HeadlinesNewsCellViewModel] = []
@@ -33,6 +34,16 @@ class HeadlinesViewController: UIViewController {
         setupView()
         fetchHeadlineNews()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        timer.invalidate()
+        fetchDataTimer.invalidate()
+        timer = nil
+        fetchDataTimer = nil
+    }
+
 
     func setupView() {
         headlinesTableView.delegate = self
@@ -58,6 +69,13 @@ class HeadlinesViewController: UIViewController {
         //Notifications from View Model
         viewModel.onUpdateNews = { [weak self] in
             print("Finished to load datas: \(self?.viewModel.newsCells.count ?? 0)")
+
+            let deletedIndexes = [0, 1, 2, 3]
+            self?.filteredArray = self?.viewModel.newsCells
+                .enumerated()
+                .filter { !deletedIndexes.contains($0.offset) }
+                .map { $0.element } ?? []
+
             self?.sliderPageView.numberOfPages = self?.viewModel.newsCells.prefix(3).count ?? 0
             self?.sliderPageView.currentPage = 0
             self?.headlinesTableView.reloadData()
@@ -107,14 +125,14 @@ class HeadlinesViewController: UIViewController {
 extension HeadlinesViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.newsCells.count
+        return filteredArray?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: HeadlinesCell = headlinesTableView.dequeueReusableCell(indexPath: indexPath)
         cell.selectionStyle = .none
-        let item = viewModel.newsCells[indexPath.row]
+        guard let item = filteredArray?[indexPath.row] else { return cell }
 
         let placeholder = UIImage(named: "placeholder")
 

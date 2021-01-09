@@ -26,7 +26,7 @@ extension String {
     }
 
     func viewController<T: UIViewController>(identifier: String = T.identifier) -> T {
-        return storyboard.instantiateViewController(withIdentifier: identifier) as! T
+        return (storyboard.instantiateViewController(withIdentifier: identifier) as? T)!
     }
 
 }
@@ -38,4 +38,3 @@ extension UIStoryboard {
     }
 
 }
-

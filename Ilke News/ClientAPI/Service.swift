@@ -12,15 +12,15 @@ enum HTTPError: Error {
     case invalidResponse, noData, failedRequest, invalidData
 }
 
-typealias fetchDataCompletion = (Data?, HTTPError?) -> ()
-typealias cancelCompletion = () -> ()
+typealias FetchDataCompletion = (Data?, HTTPError?) -> ()
+typealias CancelCompletion = () -> ()
 
 protocol ServiceProtocol {
     func fetchData(for url: URL, completion: @escaping (Data?, HTTPError?) -> ())
     func cancel()
 }
 
-final class Service: ServiceProtocol{
+final class Service: ServiceProtocol {
     private var task: URLSessionDataTask!
 
     func fetchData(for url: URL, completion: @escaping (Data?, HTTPError?) -> ()){
@@ -62,9 +62,8 @@ final class Service: ServiceProtocol{
         task.resume()
     }
 
-    func cancel(){
+    func cancel() {
         task?.cancel()
     }
 
 }
-

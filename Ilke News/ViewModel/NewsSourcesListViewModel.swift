@@ -10,7 +10,7 @@ import Foundation
 
 final class NewsSourcesListViewModel {
 
-    //MARK: Constants and Variables
+    // MARK: Constants and Variables
 
     var coordinator: SourcesCoordinator?
     var webService: NewsServiceProtocol!
@@ -25,26 +25,24 @@ final class NewsSourcesListViewModel {
     var newsCells: [SourcesNewsCellViewModel] = []
     var isLastPage: Bool = true
 
-    //MARK: Initializer
-
-    init(webService: NewsServiceProtocol){
+    // MARK: Initializer
+    init(webService: NewsServiceProtocol) {
         self.webService = webService
     }
 
-    //MARK: News Functions
-
-    func viewDidLoad(){
+    // MARK: News Functions
+    func viewDidLoad() {
         webService.getSourcesList(
             completion: completionHandler(object: error:)
         )
     }
 
-    func viewDidScrollToBottom(){
+    func viewDidScrollToBottom() {
 
         print("scroll newssources")
     }
 
-    func completionHandler(object: SourceItem?, error: HTTPError?){
+    func completionHandler(object: SourceItem?, error: HTTPError?) {
         guard error == nil else {
             onShowAlert("Network Error", error?.localizedDescription)
             return
@@ -56,16 +54,14 @@ final class NewsSourcesListViewModel {
         onUpdateNews()
     }
 
-
-    //MARK: Coordinator Functions
-
-    func newsDidSelect(at index: Int, sourceItem:Source){
+    // MARK: Coordinator Functions
+    func newsDidSelect(at index: Int, sourceItem: Source) {
        // let news = newsCells[index]
 
         coordinator?.presentNewsDetailsViewController(with: sourceItem)
     }
 
-    func viewDidDisappear(){
+    func viewDidDisappear() {
         coordinator?.didFinishNewsTableViewController()
     }
 

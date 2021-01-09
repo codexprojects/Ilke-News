@@ -11,19 +11,19 @@ import Foundation
 final class SourcesNewsCellViewModel {
     var sourceDetail: SourceDetail
 
-    var id: String{
+    var id: String {
         return sourceDetail.id
     }
 
-    var name: String{
+    var name: String {
         return sourceDetail.name
     }
 
-    var description: String?{
+    var description: String? {
         return sourceDetail.description
     }
 
-    var category: String{
+    var category: String {
         return sourceDetail.category
     }
 

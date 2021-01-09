@@ -28,7 +28,6 @@ class SourcesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
         fetchSourcesData()
     }
@@ -45,25 +44,24 @@ class SourcesViewController: UIViewController {
 
     func fetchSourcesData() {
         viewModel.viewDidLoad()
-        //Notifications from View Model
+        // Notifications from View Model
         viewModel.onUpdateNews = { [weak self] in
             print("Finished to load datas: \(self?.viewModel.newsCells.count ?? 0)")
             self?.filteredArray.removeAll()
-            self?.filteredArray = self?.viewModel.newsCells ?? []
+            self?.filteredArray = self?.viewModel.newsCells.filter { $0.sourceDetail.language == "en" } ?? []
             self?.sourcesTableView.reloadData()
         }
     }
 
     func setCategory() {
-
-        //If selected categories is empty fetch sources data again, else filter from local array.
+        // If selected categories is empty fetch sources data again, else filter from local array.
         switch selectedCategories.isEmpty {
         case true:
             fetchSourcesData()
         case false:
             filteredArray.removeAll()
-            for i in selectedCategories {
-              filteredArray += viewModel.newsCells.filter { i.rawValue.contains($0.category) }
+            for item in selectedCategories {
+              filteredArray += viewModel.newsCells.filter { item.rawValue.contains($0.category) }
             }
             sourcesTableView.reloadData()
         }
@@ -72,7 +70,7 @@ class SourcesViewController: UIViewController {
 
 }
 
-//MARK: - TABLE VIEW METHODS
+// MARK: - TABLE VIEW METHODS
 extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

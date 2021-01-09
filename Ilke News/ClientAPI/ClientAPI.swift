@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct APIHost{
+struct APIHost {
     static let `extension` = "https"
     static let host = "newsapi.org"
     static let headlinesUrl = "/v2/top-headlines"
     static let sourcesUrl = "/v2/sources"
-    static let apiKey = "d3fbf7edd7184132a29d30d3cf244b4e" //Generated from newsapi.org
+    static let apiKey = "d3fbf7edd7184132a29d30d3cf244b4e" // Generated from newsapi.org
 }
 
 typealias HeadlineResponseObject = (HeadlineItem?, HTTPError?) -> ()
@@ -38,7 +38,7 @@ final class NewsWebService: NewsServiceProtocol {
         return urlBuilder
     }()
 
-    func getHeadlinesList(source:String, completion: @escaping HeadlineResponseObject){
+    func getHeadlinesList(source: String, completion: @escaping HeadlineResponseObject) {
         urlBuilder.path = APIHost.headlinesUrl
         urlBuilder.queryItems = [
             URLQueryItem(name: "sources", value: source),
@@ -49,7 +49,7 @@ final class NewsWebService: NewsServiceProtocol {
         getNewsHeadlines(for: url, completion: completion)
     }
 
-    func getSourcesList(completion: @escaping SourceResponseObject){
+    func getSourcesList(completion: @escaping SourceResponseObject) {
         urlBuilder.path = APIHost.sourcesUrl
         urlBuilder.queryItems = [
             URLQueryItem(name: "lang", value: "en"),
@@ -60,10 +60,10 @@ final class NewsWebService: NewsServiceProtocol {
         getNewsSources(for: url, completion: completion)
     }
 
-    private func getNewsHeadlines(for url: URL, completion: @escaping HeadlineResponseObject){
+    private func getNewsHeadlines(for url: URL, completion: @escaping HeadlineResponseObject) {
         dataService.fetchData(for: url) { (data, err) in
 
-            guard err == nil else{
+            guard err == nil else {
                 completion(nil, err)
                 return
             }
@@ -81,10 +81,10 @@ final class NewsWebService: NewsServiceProtocol {
         }
     }
 
-    private func getNewsSources(for url: URL, completion: @escaping SourceResponseObject){
+    private func getNewsSources(for url: URL, completion: @escaping SourceResponseObject) {
         dataService.fetchData(for: url) { (data, err) in
 
-            guard err == nil else{
+            guard err == nil else {
                 completion(nil, err)
                 return
             }

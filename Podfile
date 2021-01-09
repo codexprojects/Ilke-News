@@ -7,5 +7,6 @@ target 'Ilke News' do
 
   # Pods for Ilke News
   pod 'Kingfisher'
+  pod 'SwiftLint'
 
 end

@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-protocol CoordinatorProtocol: class{
+protocol CoordinatorProtocol: class {
     var childCoordinators: [CoordinatorProtocol] { get }
     func start()
 }
 
-final class AppCoordinator: CoordinatorProtocol{
+final class AppCoordinator: CoordinatorProtocol {
     private(set) var childCoordinators: [CoordinatorProtocol] = []
 
     private let window: UIWindow
@@ -24,13 +24,12 @@ final class AppCoordinator: CoordinatorProtocol{
         self.window = window
     }
 
-    func start(){
+    func start() {
         let navigationController = UINavigationController()
         let newsCoordinator = SourcesCoordinator(navigationController: navigationController)
         newsCoordinator.webService = webService
         childCoordinators.append(newsCoordinator)
         newsCoordinator.start()
-    
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
