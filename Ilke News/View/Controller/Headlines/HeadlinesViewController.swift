@@ -15,18 +15,18 @@ class HeadlinesViewController: UIViewController {
 
     @IBOutlet weak var headlinesTableView: UITableView!
 
-    //SliderCollecitonView
+    // SliderCollecitonView
     @IBOutlet weak var sliderCollectionView: UICollectionView!
     @IBOutlet weak var sliderPageView: UIPageControl!
-    var timer : Timer!
+    var timer: Timer!
     var counter = 0
-    var filteredArray:[HeadlinesNewsCellViewModel]?
+    var filteredArray: [HeadlinesNewsCellViewModel]?
 
-    //Fetch data every 2 min.
+    // Fetch data every 2 min.
     var fetchDataTimer: Timer!
 
-    //TODO: Read list dummy local array.
-    var readList : [HeadlinesNewsCellViewModel] = []
+    // TODO: Read list dummy local array.
+    var readList: [HeadlinesNewsCellViewModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,6 @@ class HeadlinesViewController: UIViewController {
         timer = nil
         fetchDataTimer = nil
     }
-
 
     func setupView() {
         headlinesTableView.delegate = self
@@ -66,7 +65,7 @@ class HeadlinesViewController: UIViewController {
         print("Headlines news id: \(viewModel.source.id ?? "-")")
         print("Headlines news id: \(viewModel.source.name ?? "-")")
 
-        //Notifications from View Model
+        // Notifications from View Model
         viewModel.onUpdateNews = { [weak self] in
             print("Finished to load datas: \(self?.viewModel.newsCells.count ?? 0)")
 
@@ -101,7 +100,7 @@ class HeadlinesViewController: UIViewController {
 
     @objc func readListAction(_ sender: UIButton) {
 
-        //TODO: Optional read list logic could be updated.
+        // TODO: Optional read list logic could be updated.
         print("save to user defaults : \(sender.tag)")
 
         let indexPath = IndexPath(row: sender.tag, section: 0)
@@ -121,7 +120,7 @@ class HeadlinesViewController: UIViewController {
 
 }
 
-//MARK: - TABLE VIEW METHODS
+// MARK: - TABLE VIEW METHODS
 extension HeadlinesViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -138,7 +137,7 @@ extension HeadlinesViewController: UITableViewDelegate, UITableViewDataSource {
 
         if let urlStr = item.urlToImage, let url = URL(string: urlStr) {
             let resource = ImageResource(downloadURL: url, cacheKey: item.urlToImage)
-            cell.urlToImage.kf.setImage(with: resource, placeholder: placeholder, options: [.transition(.fade(0.2))], progressBlock: nil) { _,_,_,_  in }
+            cell.urlToImage.kf.setImage(with: resource, placeholder: placeholder, options: [.transition(.fade(0.2))], progressBlock: nil) { _, _, _, _  in }
         }
 
         cell.titleLabel.text = item.title
@@ -153,7 +152,6 @@ extension HeadlinesViewController: UITableViewDelegate, UITableViewDataSource {
         return 220
     }
 }
-
 
 // MARK: - UICollectionView DataSource
 extension HeadlinesViewController: UICollectionViewDataSource {
@@ -172,7 +170,7 @@ extension HeadlinesViewController: UICollectionViewDataSource {
 
         if let urlStr = item.urlToImage, let url = URL(string: urlStr) {
             let resource = ImageResource(downloadURL: url, cacheKey: item.urlToImage)
-            cell.imageUrl.kf.setImage(with: resource, placeholder: placeholder, options: [.transition(.fade(0.2))], progressBlock: nil) { _,_,_,_  in }
+            cell.imageUrl.kf.setImage(with: resource, placeholder: placeholder, options: [.transition(.fade(0.2))], progressBlock: nil) { _, _, _, _  in }
         }
 
         cell.titleLabel.text = item.title
@@ -205,4 +203,3 @@ extension HeadlinesViewController: UICollectionViewDelegateFlowLayout {
         return 0.0
     }
 }
-

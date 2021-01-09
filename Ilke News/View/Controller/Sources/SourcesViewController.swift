@@ -16,15 +16,15 @@ class SourcesViewController: UIViewController {
     @IBOutlet weak var sourcesTableView: UITableView!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
 
-    var categories:[Category] = [.general,
+    var categories: [Category] = [.general,
                                  .business,
                                  .entertainment,
                                  .health,
                                  .science,
                                  .sports,
                                  .technology]
-    var selectedCategories:[Category] = []
-    var filteredArray : [SourcesNewsCellViewModel] = []
+    var selectedCategories: [Category] = []
+    var filteredArray: [SourcesNewsCellViewModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,8 @@ class SourcesViewController: UIViewController {
         case false:
             filteredArray.removeAll()
             for item in selectedCategories {
-              filteredArray += viewModel.newsCells.filter { item.rawValue.contains($0.category) }
+                let enFilteredArray = viewModel.newsCells.filter { $0.sourceDetail.language == "en" }
+                filteredArray += enFilteredArray.filter { item.rawValue.contains($0.category) }
             }
             sourcesTableView.reloadData()
         }
@@ -101,8 +102,6 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-
 
 // MARK: - UICollectionView DataSource
 extension SourcesViewController: UICollectionViewDataSource {

@@ -15,9 +15,9 @@ final class NewsListViewModel {
     var coordinator: HeadlinesNewsCoordinator?
     var webService: NewsServiceProtocol!
 
-    var onUpdateNews: () -> () = {}
-    var onUpdateSearchNews: () -> () = {}
-    var onShowAlert: (String, String?) -> () = { _,_ in }
+    var onUpdateNews: () -> Void = {}
+    var onUpdateSearchNews: () -> Void = {}
+    var onShowAlert: (String, String?) -> Void = { _, _ in }
 
     private var nextPage = 1
     var newsCells: [HeadlinesNewsCellViewModel] = []

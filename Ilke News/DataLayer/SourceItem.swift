@@ -18,7 +18,7 @@ enum Category: String {
     case technology
 }
 
-final class SourceItem: Codable{
+final class SourceItem: Codable {
     var status: String!
     var totalResults: Int?
     var sources: [SourceDetail]?
@@ -26,7 +26,7 @@ final class SourceItem: Codable{
     var message: String?
 }
 
-final class SourceDetail: Codable{
+final class SourceDetail: Codable {
     var id: String!
     var name: String!
     var description: String!

@@ -16,8 +16,8 @@ struct APIHost {
     static let apiKey = "d3fbf7edd7184132a29d30d3cf244b4e" // Generated from newsapi.org
 }
 
-typealias HeadlineResponseObject = (HeadlineItem?, HTTPError?) -> ()
-typealias SourceResponseObject = (SourceItem?, HTTPError?) -> ()
+typealias HeadlineResponseObject = (HeadlineItem?, HTTPError?) -> Void
+typealias SourceResponseObject = (SourceItem?, HTTPError?) -> Void
 
 protocol NewsServiceProtocol: class {
     func getHeadlinesList(source: String, completion: @escaping HeadlineResponseObject)

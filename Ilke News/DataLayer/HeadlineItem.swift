@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class HeadlineItem: Codable{
+final class HeadlineItem: Codable {
     var status: String!
     var totalResults: Int?
     var articles: [Article]?
@@ -16,7 +16,7 @@ final class HeadlineItem: Codable{
     var message: String?
 }
 
-final class Article: Codable{
+final class Article: Codable {
     var source: Source!
     var title: String!
     var url: String!
@@ -24,7 +24,7 @@ final class Article: Codable{
     var publishedAt: String!
 }
 
-final class Source: Codable{
+final class Source: Codable {
     var id: String!
     var name: String!
 }
