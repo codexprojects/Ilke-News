@@ -3,7 +3,7 @@ Case study.
 An iOS App to display news from newsapi.org
 
 # Dependencies
-This project uses Kingfisher dependecy.
+This project uses Kingfisher and SwiftLint dependencies.
 
 # Installation
 1 - In order to build the project successfully, the dependencies included in the dependencies section should be installed first.
