@@ -25,9 +25,8 @@ class HeadlinesViewController: UIViewController {
     // Fetch data every 2 min.
     var fetchDataTimer: Timer!
 
-    // TODO: Read list dummy local array.
-    var readList: [HeadlinesNewsCellViewModel] = []
-    
+    let userDefaults = UserDefaults.standard
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,12 +61,10 @@ class HeadlinesViewController: UIViewController {
 
     @objc func fetchHeadlineNews() {
         viewModel.viewDidLoad()
-        print("Headlines news id: \(viewModel.source.id ?? "-")")
-        print("Headlines news id: \(viewModel.source.name ?? "-")")
-
         // Notifications from View Model
         viewModel.onUpdateNews = { [weak self] in
-            print("Finished to load datas: \(self?.viewModel.newsCells.count ?? 0)")
+            self?.sliderPageView.numberOfPages = self?.viewModel.newsCells.prefix(3).count ?? 0
+            self?.sliderPageView.currentPage = 0
 
             let deletedIndexes = [0, 1, 2, 3]
             self?.filteredArray = self?.viewModel.newsCells
@@ -75,8 +72,27 @@ class HeadlinesViewController: UIViewController {
                 .filter { !deletedIndexes.contains($0.offset) }
                 .map { $0.element } ?? []
 
-            self?.sliderPageView.numberOfPages = self?.viewModel.newsCells.prefix(3).count ?? 0
-            self?.sliderPageView.currentPage = 0
+            guard let readList = self?.userDefaults.object(forKey: "ReadList") as? [String: String] else {
+                self?.headlinesTableView.reloadData()
+                self?.sliderCollectionView.reloadData()
+                return }
+
+            for (index, element) in readList.enumerated() {
+                for item in (self?.filteredArray)! {
+                    if element.value == item.title {
+                        guard let itemIndex = self?.filteredArray?.firstIndex(where: {$0.title == element.value}) else { return }
+                        self?.filteredArray?[itemIndex].isReadList = true
+                    }
+                }
+
+                for item in (self?.viewModel.newsCells)! {
+                    if element.value == item.title {
+                        guard let itemIndex = self?.viewModel.newsCells.firstIndex(where: {$0.title == element.value}) else { return }
+                        self?.viewModel.newsCells[itemIndex].isReadList = true
+                    }
+                }
+            }
+
             self?.headlinesTableView.reloadData()
             self?.sliderCollectionView.reloadData()
         }
@@ -99,21 +115,61 @@ class HeadlinesViewController: UIViewController {
      }
 
     @objc func readListAction(_ sender: UIButton) {
-
-        // TODO: Optional read list logic could be updated.
-        print("save to user defaults : \(sender.tag)")
+        print("save to user defaults : \(sender.tag) \(sender.superview!.tag))")
 
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let cell = headlinesTableView.cellForRow(at: indexPath) as? HeadlinesCell
+        let sliderCell = sliderCollectionView.cellForItem(at: indexPath) as? SliderCell
+        var item: HeadlinesNewsCellViewModel?
 
-        let item = viewModel.newsCells[sender.tag]
-        if readList.contains(where: { $0.title == item.title }) {
-            guard let deselectIndex = readList.firstIndex(where: {$0.title == item.title}) else { return }
-            readList.remove(at: deselectIndex)
-            cell?.readListActionButton.setTitle("Okuma Listesine Ekle", for: .normal)
+        switch sender.superview?.tag {
+        case 0:
+            item = filteredArray?[sender.tag]
+        case 1:
+            item = viewModel.newsCells[sender.tag]
+        default:
+            return
+        }
+
+        guard let readList = userDefaults.object(forKey: "ReadList") as? [String: String] else {
+            let dictionary = ["title": item!.title]
+            userDefaults.set(dictionary, forKey: "ReadList")
+            userDefaults.synchronize()
+            if sender.superview?.tag == 0 {
+                item?.isReadList = true
+                cell?.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+            } else {
+                item?.isReadList = true
+                sliderCell?.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+            }
+            return
+        }
+
+        if readList.contains(where: { $0.value == item!.title }) {
+            print("remove item")
+            guard let deselectIndex = readList.firstIndex(where: {$0.value == item!.title}) else { return }
+            var updatedList = readList
+            updatedList.remove(at: deselectIndex)
+            userDefaults.set(updatedList, forKey: "ReadList")
+            userDefaults.synchronize()
+            if sender.superview?.tag == 0 {
+                cell?.readListActionButton.setTitle("Okuma Listesine Ekle", for: .normal)
+            } else {
+                item?.isReadList = false
+                sliderCell?.readListActionButton.setTitle("Okuma Listesine Ekle", for: .normal)
+            }
         } else {
-            readList.append(item)
-            cell?.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+            print("add item")
+            var updatedList = userDefaults.object(forKey: "ReadList") as? [String: String]
+            updatedList?.updateValue(item!.title, forKey: "title")
+            userDefaults.set(updatedList, forKey: "ReadList")
+            userDefaults.synchronize()
+            if sender.superview?.tag == 0 {
+                cell?.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+            } else {
+                item?.isReadList = true
+                sliderCell?.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+            }
         }
 
     }
@@ -142,14 +198,20 @@ extension HeadlinesViewController: UITableViewDelegate, UITableViewDataSource {
 
         cell.titleLabel.text = item.title
         cell.publishedAtLabel.text = item.publishedAt
+        if item.isReadList {
+            cell.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+        } else {
+            cell.readListActionButton.setTitle("Okuma Listesine Ekle", for: .normal)
+        }
         cell.readListActionButton.tag = indexPath.row
+        cell.readListActionButton.superview?.tag = 0
         cell.readListActionButton.addTarget(self, action: #selector(readListAction), for: .touchUpInside)
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 220
+        return 235
     }
 }
 
@@ -164,7 +226,7 @@ extension HeadlinesViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        let item = viewModel.newsCells.prefix(3)[indexPath.row]
+        let item = viewModel.newsCells[indexPath.row]
 
         let placeholder = UIImage(named: "placeholder")
 
@@ -175,6 +237,14 @@ extension HeadlinesViewController: UICollectionViewDataSource {
 
         cell.titleLabel.text = item.title
         cell.publishedAt.text = item.publishedAt
+        if item.isReadList {
+            cell.readListActionButton.setTitle("Okuma Listesinden Çıkar", for: .normal)
+        } else {
+            cell.readListActionButton.setTitle("Okuma Listesine Ekle", for: .normal)
+        }
+        cell.readListActionButton.tag = indexPath.row
+        cell.readListActionButton.superview?.tag = 1
+        cell.readListActionButton.addTarget(self, action: #selector(readListAction), for: .touchUpInside)
 
         return cell
     }

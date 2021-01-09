@@ -23,14 +23,14 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sPv-CN-rV0">
-                    <rect key="frame" x="0.0" y="257" width="414" height="605"/>
+                    <rect key="frame" x="0.0" y="287" width="414" height="575"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="X4g-tP-dm0">
-                    <rect key="frame" x="0.0" y="44" width="414" height="205"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="235"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="205" id="eIN-vS-rhG"/>
+                        <constraint firstAttribute="height" constant="235" id="eIN-vS-rhG"/>
                     </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cQL-Kt-6IK">
                         <size key="itemSize" width="371" height="235"/>
@@ -41,7 +41,7 @@
                     <cells/>
                 </collectionView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ORR-WE-xWl">
-                    <rect key="frame" x="40" y="219.5" width="335" height="27.5"/>
+                    <rect key="frame" x="40" y="249.5" width="335" height="27.5"/>
                     <color key="pageIndicatorTintColor" red="0.00053296686380000001" green="0.30703356859999997" blue="0.57698380949999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="currentPageIndicatorTintColor" systemColor="systemGrayColor"/>
                 </pageControl>

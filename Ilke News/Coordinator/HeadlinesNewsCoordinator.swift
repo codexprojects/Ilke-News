@@ -24,7 +24,6 @@ final class HeadlinesNewsCoordinator: CoordinatorProtocol {
         newsListViewModel.coordinator = self
         let headlinesViewController = HeadlinesViewController()
         headlinesViewController.navigationItem.title = source.name
-        headlinesViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: nil)
         headlinesViewController.viewModel = newsListViewModel
         navigationController.pushViewController(headlinesViewController, animated: true)
     }

@@ -36,6 +36,8 @@ final class HeadlinesNewsCellViewModel {
         return dateFormatter.string(from: date)
     }
 
+    var isReadList: Bool = false
+
     init(article: Article) {
         self.article = article
     }

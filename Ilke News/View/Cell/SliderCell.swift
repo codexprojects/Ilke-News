@@ -12,4 +12,5 @@ class SliderCell: UICollectionViewCell {
     @IBOutlet weak var imageUrl: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var publishedAt: UILabel!
+    @IBOutlet weak var readListActionButton: UIButton!
 }
