@@ -69,13 +69,27 @@ class HeadlinesViewController: UIViewController {
             self?.mainDataArray?.removeAll()
             self?.sliderDataArray?.removeAll()
 
-            let deletedIndexes = [0, 1, 2]
-            self?.mainDataArray = self?.viewModel.newsCells
-                .enumerated()
-                .filter { !deletedIndexes.contains($0.offset) }
-                .map { $0.element } ?? []
+            func processResponseData(responseData: [HeadlinesNewsCellViewModel], type: CellType) -> [HeadlinesNewsCellViewModel] {
 
-            self?.sliderDataArray = self?.viewModel.newsCells.enumerated().compactMap { $0.offset < 3 ? $0.element : nil }
+                var processedDataArray: [HeadlinesNewsCellViewModel] = []
+
+                switch type {
+                case .news:
+                    let deletedIndexes = [0, 1, 2]
+                    processedDataArray = responseData
+                        .enumerated()
+                        .filter { !deletedIndexes.contains($0.offset) }
+                        .map { $0.element }
+                    return processedDataArray
+                case .slider:
+                    processedDataArray = responseData.enumerated().compactMap { $0.offset < 3 ? $0.element : nil }
+                    return processedDataArray
+                }
+            }
+
+            self?.mainDataArray = processResponseData(responseData: self?.viewModel.newsCells ?? [], type: .news)
+            self?.sliderDataArray = processResponseData(responseData: self?.viewModel.newsCells ?? [], type: .slider
+            )
 
             self?.sliderPageView.numberOfPages = self?.sliderDataArray?.count ?? 0
             self?.sliderPageView.currentPage = 0
