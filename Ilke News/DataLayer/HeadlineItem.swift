@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum CellType: String {
+    case news
+    case slider
+}
+
 final class HeadlineItem: Codable {
     var status: String!
     var totalResults: Int?

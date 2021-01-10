@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeadlinesViewController" customModule="Ilke_News" customModuleProvider="target">
             <connections>
-                <outlet property="headlinesTableView" destination="sPv-CN-rV0" id="TCv-V6-xzn"/>
+                <outlet property="headlinesCollectionView" destination="9Yw-Hw-VaD" id="Muc-ZG-EV7"/>
                 <outlet property="sliderCollectionView" destination="X4g-tP-dm0" id="Sii-rx-mIZ"/>
                 <outlet property="sliderPageView" destination="ORR-WE-xWl" id="3l0-L8-frQ"/>
                 <outlet property="view" destination="157-yM-3ub" id="dMP-X4-hSP"/>
@@ -22,10 +22,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sPv-CN-rV0">
-                    <rect key="frame" x="0.0" y="287" width="414" height="575"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="X4g-tP-dm0">
                     <rect key="frame" x="0.0" y="44" width="414" height="235"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -45,20 +41,30 @@
                     <color key="pageIndicatorTintColor" red="0.00053296686380000001" green="0.30703356859999997" blue="0.57698380949999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="currentPageIndicatorTintColor" systemColor="systemGrayColor"/>
                 </pageControl>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9Yw-Hw-VaD">
+                    <rect key="frame" x="0.0" y="287" width="414" height="575"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ge2-Zp-ZcR">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="PBx-bK-XSO"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="PBx-bK-XSO" firstAttribute="trailing" secondItem="ORR-WE-xWl" secondAttribute="trailing" constant="39" id="3TJ-Vp-61H"/>
                 <constraint firstItem="X4g-tP-dm0" firstAttribute="top" secondItem="PBx-bK-XSO" secondAttribute="top" id="4jh-5y-NDH"/>
-                <constraint firstItem="sPv-CN-rV0" firstAttribute="trailing" secondItem="PBx-bK-XSO" secondAttribute="trailing" id="BPL-i3-u0O"/>
                 <constraint firstItem="ORR-WE-xWl" firstAttribute="leading" secondItem="PBx-bK-XSO" secondAttribute="leading" constant="40" id="FvS-9d-4Ns"/>
                 <constraint firstItem="X4g-tP-dm0" firstAttribute="leading" secondItem="PBx-bK-XSO" secondAttribute="leading" id="N9J-f7-08v"/>
-                <constraint firstItem="sPv-CN-rV0" firstAttribute="top" secondItem="X4g-tP-dm0" secondAttribute="bottom" constant="8" symbolic="YES" id="NDp-lm-YZe"/>
-                <constraint firstItem="sPv-CN-rV0" firstAttribute="top" secondItem="ORR-WE-xWl" secondAttribute="bottom" constant="10" id="bNQ-Ka-pat"/>
-                <constraint firstItem="sPv-CN-rV0" firstAttribute="bottom" secondItem="PBx-bK-XSO" secondAttribute="bottom" id="bsb-aw-dIr"/>
-                <constraint firstItem="sPv-CN-rV0" firstAttribute="leading" secondItem="PBx-bK-XSO" secondAttribute="leading" id="ck9-Wd-bAd"/>
+                <constraint firstItem="9Yw-Hw-VaD" firstAttribute="top" secondItem="X4g-tP-dm0" secondAttribute="bottom" constant="8" symbolic="YES" id="g6n-eI-YsH"/>
+                <constraint firstItem="9Yw-Hw-VaD" firstAttribute="top" secondItem="ORR-WE-xWl" secondAttribute="bottom" constant="10" id="iUl-7f-YWA"/>
                 <constraint firstItem="PBx-bK-XSO" firstAttribute="trailing" secondItem="X4g-tP-dm0" secondAttribute="trailing" id="k75-bt-aih"/>
+                <constraint firstItem="9Yw-Hw-VaD" firstAttribute="trailing" secondItem="PBx-bK-XSO" secondAttribute="trailing" id="kOp-9h-kXF"/>
+                <constraint firstItem="9Yw-Hw-VaD" firstAttribute="bottom" secondItem="PBx-bK-XSO" secondAttribute="bottom" id="vsK-vc-ZES"/>
+                <constraint firstItem="9Yw-Hw-VaD" firstAttribute="leading" secondItem="PBx-bK-XSO" secondAttribute="leading" id="wJX-4i-FaT"/>
             </constraints>
             <point key="canvasLocation" x="-162.31884057971016" y="-197.54464285714286"/>
         </view>

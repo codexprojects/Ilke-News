@@ -9,5 +9,7 @@
 import Foundation
 
 struct ReadList {
-
+    enum ReadListKey {
+        static let readList = "ReadList"
+    }
 }

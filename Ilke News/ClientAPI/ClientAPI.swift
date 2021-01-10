@@ -13,7 +13,8 @@ struct APIHost {
     static let host = "newsapi.org"
     static let headlinesUrl = "/v2/top-headlines"
     static let sourcesUrl = "/v2/sources"
-    static let apiKey = "4280826746c440cba3660dd27cee6ab9"  // "d3fbf7edd7184132a29d30d3cf244b4e" // Generated from newsapi.org
+    // Backup APIKey "4280826746c440cba3660dd27cee6ab9" Generated from newsapi.org
+    static let apiKey = "d3fbf7edd7184132a29d30d3cf244b4e"
 }
 
 typealias HeadlineResponseObject = (HeadlineItem?, HTTPError?) -> Void
