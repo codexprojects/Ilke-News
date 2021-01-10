@@ -88,8 +88,7 @@ class HeadlinesViewController: UIViewController {
             }
 
             self?.mainDataArray = processResponseData(responseData: self?.viewModel.newsCells ?? [], type: .news)
-            self?.sliderDataArray = processResponseData(responseData: self?.viewModel.newsCells ?? [], type: .slider
-            )
+            self?.sliderDataArray = processResponseData(responseData: self?.viewModel.newsCells ?? [], type: .slider)
 
             self?.sliderPageView.numberOfPages = self?.sliderDataArray?.count ?? 0
             self?.sliderPageView.currentPage = 0
